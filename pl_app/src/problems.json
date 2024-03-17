@@ -1,0 +1,264 @@
+[
+    {
+        "name": "Double integrator consumption",
+        "julia_code": "using CTProblems\nprob = Problem(:integrator, :consumption, :x_dim_2, :u_dim_1, :lagrange, :u_cons, :non_diff_wrt_u)",
+        "ansi_code": [
+            "t \u2208 [t0, tf], time",
+            "x \u2208 R\u00b2, state",
+            "u \u2208 R, control",
+            "x(t0) == x0, initial_con",
+            "x(tf) == xf, final_con",
+            "-\u03b3 \u2264 u(t) \u2264 \u03b3, u_con",
+            "\u1e8b(t) == A * x(t) + B * u(t)",
+            "\u222babs(u(t)) \u2192 min"
+        ]
+    },
+    {
+        "name": "Double integrator energy",
+        "julia_code": "using CTProblems\nprob = Problem(:integrator, :energy, :x_dim_2, :u_dim_1, :lagrange, :noconstraints)",
+        "ansi_code": [
+            "t \u2208 [t0, tf], time",
+            "x \u2208 R\u00b2, state",
+            "u \u2208 R, control",
+            "x(t0) == [-1, 0], initial_con",
+            "x(tf) == [0, 0], final_con",
+            "\u1e8b(t) == A * x(t) + B * u(t)",
+            "\u222b(0.5 * u(t) ^ 2) \u2192 min"
+        ]
+    },
+    {
+        "name": "Double integrator energy cc",
+        "julia_code": "using CTProblems\nprob = Problem(:integrator, :energy, :x_dim_2, :u_dim_1, :lagrange, :u_cons)",
+        "ansi_code": [
+            "t \u2208 [t0, tf], time",
+            "x \u2208 R\u00b2, state",
+            "u \u2208 R, control",
+            "x(t0) == x0, initial_con",
+            "x(tf) == xf, final_con",
+            "-\u03b3 \u2264 u(t) \u2264 \u03b3, u_con",
+            "\u1e8b(t) == A * x(t) + B * u(t)",
+            "\u222b(0.5 * u(t) ^ 2) \u2192 min"
+        ]
+    },
+    {
+        "name": "Double integrator energy distance",
+        "julia_code": "using CTProblems\nprob = Problem(:integrator, :energy, :distance, :x_dim_2, :u_dim_1, :bolza)",
+        "ansi_code": [
+            "t \u2208 [t0, tf], time",
+            "x \u2208 R\u00b2, state",
+            "u \u2208 R, control",
+            "x(t0) == x0, initial_con",
+            "\u1e8b(t) == A * x(t) + B * u(t)",
+            "-0.5 * x\u2081(tf) + \u222b(0.5 * u(t) ^ 2) \u2192 min"
+        ]
+    },
+    {
+        "name": "Double integrator energy sc",
+        "julia_code": "using CTProblems\nprob = Problem(:integrator, :energy, :x_dim_2, :u_dim_1, :lagrange, :x_cons, :order_2)",
+        "ansi_code": [
+            "t \u2208 [t0, tf], time",
+            "x \u2208 R\u00b2, state",
+            "u \u2208 R, control",
+            "x(t0) == x0, initial_con",
+            "x(tf) == xf, final_con",
+            "-Inf \u2264 x\u2081(t) \u2264 l, x_con",
+            "\u1e8b(t) == A * x(t) + B * u(t)",
+            "\u222b(0.5 * u(t) ^ 2) \u2192 min"
+        ]
+    },
+    {
+        "name": "Double integrator time",
+        "julia_code": "using CTProblems\nprob = Problem(:integrator, :time, :x_dim_2, :u_dim_1, :mayer, :u_cons)",
+        "ansi_code": [
+            "tf \u2208 R, variable",
+            "t \u2208 [t0, tf], time",
+            "x \u2208 R\u00b2, state",
+            "u \u2208 R, control",
+            "x(t0) == x0, initial_con",
+            "x(tf) == xf, final_con",
+            "-\u03b3 \u2264 u(t) \u2264 \u03b3, u_con",
+            "\u1e8b(t) == A * x(t) + B * u(t)",
+            "tf \u2192 min"
+        ]
+    },
+    {
+        "name": "Goddard",
+        "julia_code": "using CTProblems",
+        "ansi_code": [
+            "Cd = 310",
+            "Tmax = 3.5",
+            "\u03b2 = 500",
+            "b = 2",
+            "t0 = 0",
+            "r0 = 1",
+            "v0 = 0",
+            "vmax = 0.1",
+            "m0 = 1",
+            "mf = 0.6",
+            "x0 = [r0, v0, m0]",
+            "tf \u2208 R, variable",
+            "t \u2208 [t0, tf], time",
+            "x \u2208 R\u00b3, state",
+            "u \u2208 R, control",
+            "r = x\u2081",
+            "v = x\u2082",
+            "m = x\u2083",
+            "0 \u2264 u(t) \u2264 1, u_con",
+            "r(t) \u2265 r0, x_con_rmin",
+            "0 \u2264 v(t) \u2264 vmax, x_con_vmax",
+            "x(t0) == x0, initial_con",
+            "m(tf) == mf, final_con",
+            "\u1e8b(t) == F0(x(t)) + u(t) * F1(x(t))",
+            "r(tf) \u2192 max"
+        ]
+    },
+    {
+        "name": "LQR",
+        "julia_code": "using CTProblems\nprob = Problem(:lqr, :x_dim_2, :u_dim_1, :lagrange)",
+        "ansi_code": [
+            "t \u2208 [t0, tf], time",
+            "x \u2208 R\u00b2, state",
+            "u \u2208 R, control",
+            "x(t0) == x0, initial_con",
+            "\u1e8b(t) == A * x(t) + B * u(t)",
+            "\u222b(0.5 * (x\u2081(t) ^ 2 + x\u2082(t) ^ 2 + u(t) ^ 2)) \u2192 min"
+        ]
+    },
+    {
+        "name": "Orbital transfert consumption",
+        "julia_code": "using CTProblems\nprob = Problem(:orbital_transfert, :consumption)",
+        "ansi_code": [
+            "t \u2208 [t0, tf], time",
+            "x \u2208 R\u2074, state",
+            "u \u2208 R\u00b2, control",
+            "x(t0) == x0, initial_con",
+            "[norm((x(tf))[1:2]) - rf, x\u2083(tf) + \u03b1 * x\u2082(tf), x\u2084(tf) - \u03b1 * x\u2081(tf)] == [0, 0, 0], boundary_con",
+            "0 \u2264 norm(u(t)) \u2264 1, u_con",
+            "\u1e8b(t) == A * [(-\u03bc * x\u2081(t)) / sqrt(x\u2081(t) ^ 2 + x\u2082(t) ^ 2) ^ 3; (-\u03bc * x\u2082(t)) / sqrt(x\u2081(t) ^ 2 + x\u2082(t) ^ 2) ^ 3; x\u2083(t); x\u2084(t)] + B * u(t)",
+            "\u222b(norm(u(t))) \u2192 min"
+        ]
+    },
+    {
+        "name": "Orbital transfert energy",
+        "julia_code": "using CTProblems\nprob = Problem(:orbital_transfert, :energy)",
+        "ansi_code": [
+            "t \u2208 [t0, tf], time",
+            "x \u2208 R\u2074, state",
+            "u \u2208 R\u00b2, control",
+            "x(t0) == x0, initial_con",
+            "[norm((x(tf))[1:2]) - rf, x\u2083(tf) + \u03b1 * x\u2082(tf), x\u2084(tf) - \u03b1 * x\u2081(tf)] == [0, 0, 0], boundary_con",
+            "0 \u2264 norm(u(t)) \u2264 1, u_con",
+            "\u1e8b(t) == A * [(-\u03bc * x\u2081(t)) / sqrt(x\u2081(t) ^ 2 + x\u2082(t) ^ 2) ^ 3; (-\u03bc * x\u2082(t)) / sqrt(x\u2081(t) ^ 2 + x\u2082(t) ^ 2) ^ 3; x\u2083(t); x\u2084(t)] + B * u(t)",
+            "\u222b(0.5 * (u\u2081(t) ^ 2 + u\u2082(t) ^ 2)) \u2192 min"
+        ]
+    },
+    {
+        "name": "Orbital transfert time",
+        "julia_code": "using CTProblems\nprob = Problem(:orbital_transfert, :time)",
+        "ansi_code": [
+            "tf \u2208 R, variable",
+            "t \u2208 [t0, tf], time",
+            "x \u2208 R\u2074, state",
+            "u \u2208 R\u00b2, control",
+            "x(t0) == x0, initial_con",
+            "[norm((x(tf))[1:2]) - rf, x\u2083(tf) + \u03b1 * x\u2082(tf), x\u2084(tf) - \u03b1 * x\u2081(tf)] == [0, 0, 0], boundary_con",
+            "0 \u2264 norm(u(t)) \u2264 \u03b3_max, u_con",
+            "\u1e8b(t) == A * [(-\u03bc * x\u2081(t)) / sqrt(x\u2081(t) ^ 2 + x\u2082(t) ^ 2) ^ 3; (-\u03bc * x\u2082(t)) / sqrt(x\u2081(t) ^ 2 + x\u2082(t) ^ 2) ^ 3; x\u2083(t); x\u2084(t)] + B * u(t)",
+            "tf \u2192 min"
+        ]
+    },
+    {
+        "name": "Simple exponential consumption",
+        "julia_code": "using CTProblems\nprob = Problem(:exponential, :consumption)",
+        "ansi_code": [
+            "t \u2208 [t0, tf], time",
+            "x \u2208 R, state",
+            "u \u2208 R, control",
+            "x(t0) == x0, initial_con",
+            "x(tf) == xf, final_con",
+            "-1 \u2264 u(t) \u2264 1, u_con",
+            "\u1e8b(t) == -(x(t)) + u(t)",
+            "\u222babs(u(t)) \u2192 min"
+        ]
+    },
+    {
+        "name": "Simple exponential energy",
+        "julia_code": "using CTProblems\nprob = Problem(:exponential, :energy)",
+        "ansi_code": [
+            "t \u2208 [t0, tf], time",
+            "x \u2208 R, state",
+            "u \u2208 R, control",
+            "x(t0) == x0, initial_con",
+            "x(tf) == xf, final_con",
+            "\u1e8b(t) == -(x(t)) + u(t)",
+            "\u222b(0.5 * u(t) ^ 2) \u2192 min"
+        ]
+    },
+    {
+        "name": "Simple exponential time",
+        "julia_code": "using CTProblems\nprob = Problem(:exponential, :time)",
+        "ansi_code": [
+            "tf \u2208 R, variable",
+            "t \u2208 [t0, tf], time",
+            "x \u2208 R, state",
+            "u \u2208 R, control",
+            "x(t0) == x0, initial_con",
+            "x(tf) == xf, final_con",
+            "-\u03b3 \u2264 u(t) \u2264 \u03b3, u_con",
+            "\u1e8b(t) == -(x(t)) + u(t)",
+            "tf \u2192 min"
+        ]
+    },
+    {
+        "name": "Simple integrator energy",
+        "julia_code": "using CTProblems\nprob = Problem(:integrator, :energy, :free_final_time, :x_dim_1, :u_dim_1, :lagrange)",
+        "ansi_code": ""
+    },
+    {
+        "name": "Simple integrator lqr",
+        "julia_code": "using CTProblems\nprob = Problem(:integrator, :lqr, :free_final_time, :x_dim_1, :u_dim_1, :bolza)",
+        "ansi_code": ""
+    },
+    {
+        "name": "Simple integrator mixed constraint",
+        "julia_code": "using CTProblems\nprob = Problem(:integrator, :x_dim_1, :u_dim_1, :lagrange, :mixed_constraint)",
+        "ansi_code": [
+            "t \u2208 [t0, tf], time",
+            "x \u2208 R, state",
+            "u \u2208 R, control",
+            "x(t0) == x0, initial_con",
+            "0 \u2264 u(t) \u2264 +Inf, u_con",
+            "-Inf \u2264 x(t) + u(t) \u2264 0, mixed_con",
+            "\u1e8b(t) == u(t)",
+            "\u222b(-(u(t))) \u2192 min"
+        ]
+    },
+    {
+        "name": "Simple integrator turnpike",
+        "julia_code": "using CTProblems\nprob = Problem(:turnpike, :integrator, :state_energy, :x_dim_1, :u_dim_1, :lagrange, :u_cons, :singular_arc)",
+        "ansi_code": [
+            "t \u2208 [t0, tf], time",
+            "x \u2208 R, state",
+            "u \u2208 R, control",
+            "x(t0) == x0, initial_con",
+            "x(tf) == xf, final_con",
+            "-1 \u2264 u(t) \u2264 1, u_con",
+            "\u1e8b(t) == u(t)",
+            "\u222b(x(t) ^ 2) \u2192 min"
+        ]
+    },
+    {
+        "name": "Simple integrator non autonomous",
+        "julia_code": "using CTProblems\nprob = Problem(:integrator, :state_dime_1, :lagrange, :x_cons, :u_cons, :nonautonomous)",
+        "ansi_code": [
+            "t \u2208 [t0, tf], time",
+            "x \u2208 R, state",
+            "u \u2208 R, control",
+            "x(t0) == x0, initial_con",
+            "0 \u2264 u(t) \u2264 3, u_con",
+            "-Inf \u2264 (1 - x(t)) - (t - 2) ^ 2 \u2264 0, x_con",
+            "\u1e8b(t) == u(t)",
+            "\u222b(exp(-\u03b1 * t) * u(t)) \u2192 min"
+        ]
+    }
+]

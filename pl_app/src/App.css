@@ -1,0 +1,36 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+/* App.css */
+body {
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif; /* Set font family for the entire page */
+  background-color: #e2e8f0; /* Set page background color */
+}
+
+.App {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh; /* Ensure the app takes up at least the full height of the viewport */
+}
+
+.editor-container {
+  flex: 1; /* Allow the editor container to grow */
+  max-width: 800px; /* Set maximum width for the editor container */
+  height: 500px; /* Set height for the editor container */
+  margin: 20px; /* Add margin around the editor container */
+}
+
+.right-side-box {
+  width: 50%; /* Set width for the right-side box */
+  max-width: 800px; /* Set maximum width for the right-side box */
+  height: 500px; /* Set height for the right-side box */
+  margin: 20px; /* Add margin around the right-side box */
+  background-color: #fff; /* Set background color for the right-side box */
+  border-radius: 8px; /* Add border radius to the right-side box */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Add box shadow to the right-side box */
+}
